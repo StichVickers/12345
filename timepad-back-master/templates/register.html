@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Какая-то хрень для категорий</title>
+</head>
+<body>
+    <h1>Какая-то хрень для категорий</h1>
+
+    <div id="categoryList">
+
+    </div>
+
+    <script>
+
+        function fetchData() {
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "/api/categorys", true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+
+                    var categorys = JSON.parse(xhr.responseText);
+
+                    var categorysHTML = "";
+
+                    categorys.forEach(function(categorys) {
+                        categorysHTML += "<div>";
+                            categorysHTML += "<h3>" + categorys.id + "</h3>";
+                        categorysHTML += "<h3>" + categorys.name + "</h3>";
+                        categorysHTML += "<p>Description: " + categorys.description + "</p>";
+                        categorysHTML += "</div>";
+                    });
+
+                    document.getElementById("categoryList").innerHTML = categorysHTML;
+                }
+            };
+
+            xhr.send();
+        }
+
+
+        window.onload = function() {
+            fetchData();
+        };
+    </script>
+    <h1>Ещё Какая-то хрень для категорий</h1>
+
+    <form id="deleteForm">
+        <label for="categorysId">categorys ID:</label><br>
+        <input type="number" id="categorysId" name="categorysId"><br><br>
+        <button type="submit">Delete categorys</button>
+    </form>
+
+    <div id="responseMessage"></div>
+
+    <script>
+        function deleteData(event) {
+            event.preventDefault(); 
+            var categorysId = document.getElementById("categorysId").value;
+            var xhr = new XMLHttpRequest();
+            xhr.open("DELETE", "/api/categorys/" + categorysId, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        document.getElementById("responseMessage").innerHTML = "categorys deleted successfully.";
+                    } else {
+                        document.getElementById("responseMessage").innerHTML = "Error: " + xhr.statusText;
+                    }
+                }
+            };
+            xhr.send();
+        }
+        document.getElementById("deleteForm").addEventListener("submit", deleteData);
+    </script>
+
+
+    <h1>Мудренная хрень для категорий</h1>
+
+    <form id="Form">
+        <label for="name">name</label><br>
+        <input type="text" id="name" name="name"><br>
+        <label for="description">description</label><br>
+        <input type="text" id="description" name="description"><br>
+        <button type="submit">Submit</button>
+    </form>
+    <div id="responseMessage"></div>
+    <script>
+        function postData(event) {
+            event.preventDefault();
+            var name = document.getElementById("name").value;
+            var description = document.getElementById("description").value;
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/api/categorys", true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        document.getElementById("responseMessage").innerHTML = "categorys created successfully.";
+                    } else {
+                        document.getElementById("responseMessage").innerHTML = "Error: " + xhr.statusText;
+                    }
+                }
+            };
+            xhr.send(JSON.stringify({name:name,description:description}));
+        }
+        document.getElementById("Form").addEventListener("submit", postData);
+    </script>
+</body>
+</html>
