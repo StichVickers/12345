@@ -4,20 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Form</title>
+    <link rel="stylesheet" href="login.css">
 </head>
 <body>
-    <h2>Login</h2>
-    <form id="loginForm">
-        <label for="login">Login:</label><br>
-        <input type="text" id="login" name="login" required><br>
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password" required><br>
-        <button type="button" onclick="authUser()">Login</button>
-    </form>
-
+    <div class="login-box">
+        <h2>Login</h2>
+        <form id="loginForm">
+          <div class="user-box">
+            <label for="login">Login:</label><br>
+            <input type="text" id="login" name="login" required>
+          </div>
+          <div class="user-box">
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password" required>
+          </div>
+          <button type="button" onclick="authUser()">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            Login
+          </button>
+        </form>
+      </div>
     <script>
         function authUser() {
-            var form = document.getElementById("loginForm");
+            var form = document.getElementById("loginFor");
             var formData = new FormData(form);
             var jsonObject = {};
             formData.forEach(function(value, key){

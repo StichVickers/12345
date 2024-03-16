@@ -9,7 +9,7 @@ Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
-@app.get("/register", response_class=HTMLResponse)
+@app.get("/", response_class=HTMLResponse)
 async def get_home(request: Request):
     return templates.TemplateResponse("register.html", {"request": request})
 @app.get("/login", response_class=HTMLResponse)
