@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Какая-то хрень для категорий</title>
+    <link href="{{ url_for('static', path='/register.css') }}" rel="stylesheet">
 </head>
 <body>
     <h1>Какая-то хрень для категорий</h1>
 
-    <div id="categoryList">
+    <div id="categoryBox">
 
     </div>
 
@@ -33,7 +34,7 @@
                         categorysHTML += "</div>";
                     });
 
-                    document.getElementById("categoryList").innerHTML = categorysHTML;
+                    document.getElementById("categoryBox").innerHTML = categorysHTML;
                 }
             };
 
@@ -46,13 +47,13 @@
         };
     </script>
     <h1>Ещё Какая-то хрень для категорий</h1>
-
+<div class="delete-box">
     <form id="deleteForm">
         <label for="categorysId">categorys ID:</label><br>
         <input type="number" id="categorysId" name="categorysId"><br><br>
         <button type="submit">Delete categorys</button>
     </form>
-
+</div>
     <div id="responseMessage"></div>
 
     <script>

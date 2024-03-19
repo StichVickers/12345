@@ -1,7 +1,8 @@
 from fastapi import FastAPI, Request
-from db import Session,engine,Base
+from db import engine,Base
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
 from routes import categorys as category_routes
 from routes import user as user_routes
 from fastapi.middleware.cors import CORSMiddleware
@@ -9,13 +10,14 @@ Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
-@app.get("/", response_class=HTMLResponse)
+app.mount("/static", StaticFiles(directory="static"), name="static")
+@app.get("/main", response_class=HTMLResponse)
 async def get_home(request: Request):
     return templates.TemplateResponse("register.html", {"request": request})
 @app.get("/login", response_class=HTMLResponse)
 async def get_home(request: Request):
     return templates.TemplateResponse("login.html", {"request": request})
-@app.get("/reg", response_class=HTMLResponse)
+@app.get("/", response_class=HTMLResponse)
 async def get_home(request: Request):
     return templates.TemplateResponse("reg.html", {"request": request})
 origins = [
